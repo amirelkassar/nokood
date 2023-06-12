@@ -35,3 +35,31 @@ git clone https://github.com/amirelkassar/nokood.git
 <p>2. Or download it as a Zip file from the Clone Button</p>
 
 <p>3. Navigato to "nokood/NokoodAssignment"</p>
+
+<p>4. Open the "NokoodAssignment.sln" in visual studio</p>
+
+<p>5. Navigate to "Presentation/NokoodAssignment.web" project and then to appseetings to update the db connection string</p>
+
+<p>6. The DB connection strings should be updated in 3 places in the appsetting.json file</p>
+
+<p>7. A-Under ConnectionStrings update Default value</p>
+
+<p>8. B-Under ConnectionString update Logs value</p>
+
+<p>9. C-Under Serilog .Args update Connectionstring value</p>
+
+<p>10. Now set the startup project to NokoodAssignment.Web and run the project</p>
+
+<p>11. It'll navigates to swagger dashboard .you can find the users appsettings.json file</p>
+
+<p>12. User any one to call login using account/login API</p>
+
+<p>13. Copy the returned token and press the authorize button on the right cornal</p>
+
+<p>14. Type Bearer[space][the copied token]]</p>
+
+```
+Bearer token....
+```
+
+<p>15. Enjoy the rest of the Apis</p>
