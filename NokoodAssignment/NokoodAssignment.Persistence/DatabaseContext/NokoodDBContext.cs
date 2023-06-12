@@ -10,6 +10,7 @@ namespace NokoodAssignment.Persistence.DatabaseContext
     {
         public NokoodDBContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
