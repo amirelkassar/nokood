@@ -16,7 +16,7 @@ namespace NokoodAssignment.Web.Controllers
             this.authenticationService = authenticationService;
         }
 
-        [HttpPost("~/login")]
+        [HttpPost("Login")]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto input)
         {

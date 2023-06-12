@@ -27,8 +27,8 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 {
                     //updating the object
                     var reservation = await nokoodDBContext.Reservations.FindAsync(request.ReservationId);
-                    reservation.ReservationDate = reservation.ReservationDate;
-                    reservation.Notes = reservation.Notes;
+                    reservation.ReservationDate = request.ReservationDate;
+                    reservation.Notes = request.Notes;
 
                     nokoodDBContext.Reservations.Update(reservation);
                     await nokoodDBContext.CommitAsync();

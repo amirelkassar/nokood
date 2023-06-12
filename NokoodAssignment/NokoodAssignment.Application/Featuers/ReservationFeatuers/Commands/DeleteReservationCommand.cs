@@ -6,7 +6,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
 {
     public class DeleteReservationCommand : IRequest<bool>
     {
-        public Guid ReservationId { get; set; }
+        public Guid Id { get; set; }
 
         public class DeleteReservationCommandHandler : IRequestHandler<DeleteReservationCommand, bool>
         {
@@ -18,9 +18,15 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
             }
             public async Task<bool> Handle(DeleteReservationCommand request, CancellationToken cancellationToken)
             {
-                var reservation = await nokoodDBContext.Reservations.FindAsync(request.ReservationId);
-                nokoodDBContext.Reservations.Remove(reservation);
-                return await nokoodDBContext.CommitAsync() > 0 ? true : false;
+                var validator = new DeleteReservationCommandValidator(nokoodDBContext);
+                var validation = await validator.ValidateAsync(request);
+                if (validation.IsValid)
+                {
+                    var reservation = await nokoodDBContext.Reservations.FindAsync(request.Id);
+                    nokoodDBContext.Reservations.Remove(reservation);
+                    return await nokoodDBContext.CommitAsync() > 0 ? true : false;
+                }
+                return false;
             }
         }
     }
@@ -29,13 +35,13 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
     {
         public DeleteReservationCommandValidator(INokoodDBContext nokoodDBContext)
         {
-            RuleFor(r => r.ReservationId)
+            RuleFor(r => r.Id)
                 .NotEmpty()
                 .NotNull()
                 .NotEqual(Guid.Empty);
 
             RuleFor(r => r)
-                .Must(r => nokoodDBContext.Reservations.Any(dt => dt.Id == r.ReservationId))
+                .Must(r => nokoodDBContext.Reservations.Any(dt => dt.Id == r.Id))
                 .WithErrorCode("Couldn't find an entity with the provided id!");
         }
     }
