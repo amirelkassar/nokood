@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using NokoodAssignment.Application;
+using NokoodAssignment.Application.Base;
 using NokoodAssignment.Persistence;
+using NokoodAssignment.Web.Handlers;
 using Serilog;
 using Serilog.Ui.MsSqlServerProvider;
 using Serilog.Ui.Web;
@@ -17,6 +20,9 @@ namespace NokoodAssignment.Web.Extensions
             builder.Services.AddApplication();
             builder.Services.AddPersistence(builder.Configuration);
             builder.Services.AddControllers();
+            builder.Services.ComfigurteAuthentication();
+            builder.Services.ConfigureAuthorization();
+            builder.Services.AddCurrentUserService();
             builder.Services.AddApiDocs();
             builder.Services.ConfigureApiVersioning();
         }
@@ -38,6 +44,27 @@ namespace NokoodAssignment.Web.Extensions
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("Logs"), "tb_logs");
             });
         }
+        private static IServiceCollection ConfigureAuthorization(this IServiceCollection services)
+        {
+            services.AddAuthorization(opts =>
+            {
+
+            });
+            return services;
+        }
+        private static IServiceCollection ComfigurteAuthentication(this IServiceCollection services)
+        {
+            services.AddAuthentication(opts =>
+            {
+                
+            });
+            return services;
+        }
+        private static IServiceCollection AddCurrentUserService(this IServiceCollection services)
+        {
+            services.AddScoped<ICurrentUser, CurrentUser>();
+            return services;
+        }
         private static IServiceCollection AddApiDocs(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
@@ -52,7 +79,6 @@ namespace NokoodAssignment.Web.Extensions
             });
             return services;
         }
-
         private static IServiceCollection ConfigureApiVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(config =>

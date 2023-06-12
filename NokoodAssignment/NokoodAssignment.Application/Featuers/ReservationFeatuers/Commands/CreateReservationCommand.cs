@@ -35,40 +35,56 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
 
             public async Task<SingleApiResponse<ReservationReadDto>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
             {
-                //check if exists
-                if (nokoodDBContext.Reservations.Any(r=>r.TripId==request.TripId && r.CustomerName.Equals(request.CustomerName,StringComparison.OrdinalIgnoreCase)))
+                var validator = new CreateReservationCommandValidator(nokoodDBContext);
+                var validation = await validator.ValidateAsync(request);
+                if (validation.IsValid)
+                {
+                    //check if reservation exists
+                    if (nokoodDBContext.Reservations.Any(r => r.TripId == request.TripId && r.CustomerName.ToLower() == request.CustomerName.ToLower()))
+                    {
+                        return new SingleApiResponse<ReservationReadDto>
+                        {
+                            Success = false,
+                            Code = 400,
+                            Message = "Couldn't create the entity",
+                            Error = new EntityAlreadyExistException()
+                        };
+                    }
+                    //creating the onject
+                    var reservation = new Reservation(
+                        Guid.NewGuid(),
+                        Guid.Parse(currentUser.Id),
+                        request.TripId,
+                        request.CustomerName,
+                        request.ReservationDate);
+                    reservation.Notes = request.Notes;
+
+                    await nokoodDBContext.Reservations.AddAsync(reservation, cancellationToken);
+                    return new SingleApiResponse<ReservationReadDto>
+                    {
+                        Success = true,
+                        Code = 201,
+                        Message = "Entity Created!",
+                        Data = (ReservationReadDto)reservation
+                    };
+                }
+                else
                 {
                     return new SingleApiResponse<ReservationReadDto>
                     {
-                        Success = false,
+                        Success=false,
                         Code=400,
-                        Message = "Couldn't create the entity",
-                        Error = new EntityAlreadyExistException()
+                        Message="Validation error",
+                        Error=validation.Errors
                     };
                 }
-                //creating the onject
-                var reservation = new Reservation(
-                    Guid.NewGuid(),
-                    Guid.Parse(currentUser.Id),
-                    request.TripId,
-                    request.CustomerName,
-                    request.ReservationDate);
-                reservation.Notes = request.Notes;
-
-                await nokoodDBContext.Reservations.AddAsync(reservation, cancellationToken);
-                return new SingleApiResponse<ReservationReadDto> 
-                { 
-                    Success = true ,
-                    Code=201,
-                    Message="Entity Created!",
-                    Data=(ReservationReadDto)reservation
-                };
+               
             }
         }
     }
     public class CreateReservationCommandValidator : AbstractValidator<CreateReservationCommand>
     {
-        public CreateReservationCommandValidator()
+        public CreateReservationCommandValidator(INokoodDBContext nokoodDBContext)
         {
             RuleFor(c => c.TripId)
                 .NotEmpty()
@@ -81,6 +97,10 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
             RuleFor(c => c.ReservationDate)
                 .NotNull()
                 .NotEmpty();
+
+            RuleFor(c => c.TripId)
+                .Must(c => nokoodDBContext.Trips.Any(t => t.Id == c))
+                .WithMessage("Couldn't find a trip with the provided id");
         }
     }
 }

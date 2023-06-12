@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NokoodAssignment.Application.Base;
+using NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands;
 
 namespace NokoodAssignment.Web.Controllers
 {
@@ -13,6 +14,11 @@ namespace NokoodAssignment.Web.Controllers
         {
         }
 
-
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(CreateReservationCommand command)
+        {
+            var commandResults = await Mediator.Send(command);
+            return commandResults.Success? Ok(commandResults) : BadRequest(commandResults);
+        }
     }
 }
