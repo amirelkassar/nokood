@@ -6,7 +6,7 @@ namespace NokoodAssignment.Web.Controllers
 {
     public abstract class NokoodControllerBase<TController> : ControllerBase where TController : NokoodControllerBase<TController>
     {
-        public NokoodControllerBase(ILogger<TController> logger,IMediator mediator,ICurrentUser currentUser)
+        public NokoodControllerBase(ILogger<TController> logger, IMediator mediator, ICurrentUser currentUser)
         {
             Logger = logger;
             Mediator = mediator;

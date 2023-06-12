@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NokoodAssignment.Domain.Consts;
 using NokoodAssignment.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokoodAssignment.Persistence.DatabaseContext.EntityConfigurations
 {
@@ -63,8 +58,8 @@ namespace NokoodAssignment.Persistence.DatabaseContext.EntityConfigurations
                 .RuleFor(t => t.Price, f => Convert.ToDouble(f.Commerce.Price()))
                 .RuleFor(t => t.ImageUrl, f => f.Image.LoremPixelUrl())
                 .RuleFor(t => t.Content, f => f.Random.Words(60))
-                .RuleFor(t=>t.CreationDate,f=>f.Date.Recent())
-                .RuleFor(t=>t.CreatorId,f=>Guid.Parse("78A7570F-3CE5-48BA-9461-80283ED1D94D"));
+                .RuleFor(t => t.CreationDate, f => f.Date.Recent())
+                .RuleFor(t => t.CreatorId, f => Guid.Parse("78A7570F-3CE5-48BA-9461-80283ED1D94D"));
 
             builder.HasData(tripFaker.Generate(count: 15));
 

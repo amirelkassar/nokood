@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Identity;
-using NokoodAssignment.Application.Base;
 using NokoodAssignment.Application.Dots;
 using Serilog;
-using System.Security.Claims;
 
 namespace NokoodAssignment.Web.Middlewares
 {
@@ -24,7 +21,7 @@ namespace NokoodAssignment.Web.Middlewares
             if (httperror != null)
             {
                 Log.Error($"An application error occured {httperror.Error}");
-                await context.Response.WriteAsJsonAsync(new SinglePageApiResponse<object>
+                await context.Response.WriteAsJsonAsync(new ApiResponse<object>
                 {
                     Success = false,
                     Message = $"An application error occured {httperror.Error}",

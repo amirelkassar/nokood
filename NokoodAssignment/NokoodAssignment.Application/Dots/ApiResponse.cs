@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NokoodAssignment.Application.Dots
+﻿namespace NokoodAssignment.Application.Dots
 {
-    public class SinglePageApiResponse<TData>
+    public class ApiResponse<TData>
     {
         public bool Success { get; set; }
         public TData Data { get; set; }

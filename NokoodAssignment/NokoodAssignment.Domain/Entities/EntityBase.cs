@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NokoodAssignment.Domain.Entities
+﻿namespace NokoodAssignment.Domain.Entities
 {
     public abstract class EntityBase<TKey>
     {

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NokoodAssignment.Application.Base;
 using NokoodAssignment.Application.Dots;
@@ -12,19 +11,19 @@ namespace NokoodAssignment.Web.Controllers
     {
         private readonly IAuthenticationService authenticationService;
 
-        public AccountController(ILogger<AccountController> logger, IMediator mediator, ICurrentUser currentUser,IAuthenticationService authenticationService) : base(logger, mediator, currentUser)
+        public AccountController(ILogger<AccountController> logger, IMediator mediator, ICurrentUser currentUser, IAuthenticationService authenticationService) : base(logger, mediator, currentUser)
         {
             this.authenticationService = authenticationService;
         }
 
         [HttpPost("~/login")]
         [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> LoginAsync([FromBody]LoginDto input)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto input)
         {
             var results = await authenticationService.LoginAsync(input);
             if (results.Success)
             {
-                return Created("", new SinglePageApiResponse<UserTokenDto>
+                return Created("", new ApiResponse<UserTokenDto>
                 {
                     Success = true,
                     Code = 204,
@@ -34,7 +33,7 @@ namespace NokoodAssignment.Web.Controllers
             }
             else
             {
-                return BadRequest(new SinglePageApiResponse<object>
+                return BadRequest(new ApiResponse<object>
                 {
                     Success = false,
                     Code = 400,

@@ -13,7 +13,7 @@ namespace NokoodAssignment.Web.Middlewares
             this.requestDelegate = requestDelegate;
         }
 
-        public async Task InvokeAsync(HttpContext context,ICurrentUser currentUser, UserManager<IdentityUser> userManager)
+        public async Task InvokeAsync(HttpContext context, ICurrentUser currentUser, UserManager<IdentityUser> userManager)
         {
             if (context.User?.Identity?.IsAuthenticated == true)
             {

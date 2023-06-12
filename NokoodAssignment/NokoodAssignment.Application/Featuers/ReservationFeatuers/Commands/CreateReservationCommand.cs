@@ -1,26 +1,20 @@
 ﻿using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using NokoodAssignment.Application.Base;
 using NokoodAssignment.Application.Dots;
 using NokoodAssignment.Domain.Entities;
 using NokoodAssignment.Domain.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
 {
-    public class CreateReservationCommand : IRequest<SinglePageApiResponse<ReservationReadDto>>
+    public class CreateReservationCommand : IRequest<ApiResponse<ReservationReadDto>>
     {
         public Guid TripId { get; set; }
         public string CustomerName { get; set; }
         public DateTime ReservationDate { get; set; }
         public string? Notes { get; set; }
 
-        public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, SinglePageApiResponse<ReservationReadDto>>
+        public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, ApiResponse<ReservationReadDto>>
         {
             private readonly INokoodDBContext nokoodDBContext;
             private readonly ICurrentUser currentUser;
@@ -33,7 +27,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 this.currentUser = currentUser;
             }
 
-            public async Task<SinglePageApiResponse<ReservationReadDto>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+            public async Task<ApiResponse<ReservationReadDto>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
             {
                 var validator = new CreateReservationCommandValidator(nokoodDBContext);
                 var validation = await validator.ValidateAsync(request);
@@ -42,7 +36,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                     //check if reservation exists
                     if (nokoodDBContext.Reservations.Any(r => r.TripId == request.TripId && r.CustomerName.ToLower() == request.CustomerName.ToLower()))
                     {
-                        return new SinglePageApiResponse<ReservationReadDto>
+                        return new ApiResponse<ReservationReadDto>
                         {
                             Success = false,
                             Code = 400,
@@ -50,7 +44,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                             Error = new EntityAlreadyExistException()
                         };
                     }
-                    //creating the onject
+                    //creating the object
                     var reservation = new Reservation(
                         Guid.NewGuid(),
                         Guid.Parse(currentUser.Id),
@@ -60,7 +54,8 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                     reservation.Notes = request.Notes;
 
                     await nokoodDBContext.Reservations.AddAsync(reservation, cancellationToken);
-                    return new SinglePageApiResponse<ReservationReadDto>
+                    await nokoodDBContext.CommitAsync();
+                    return new ApiResponse<ReservationReadDto>
                     {
                         Success = true,
                         Code = 201,
@@ -70,15 +65,15 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 }
                 else
                 {
-                    return new SinglePageApiResponse<ReservationReadDto>
+                    return new ApiResponse<ReservationReadDto>
                     {
-                        Success=false,
-                        Code=400,
-                        Message="Validation error",
-                        Error=validation.Errors
+                        Success = false,
+                        Code = 400,
+                        Message = "Validation error",
+                        Error = validation.Errors
                     };
                 }
-               
+
             }
         }
     }
@@ -88,7 +83,8 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
         {
             RuleFor(c => c.TripId)
                 .NotEmpty()
-                .NotEmpty();
+                .NotEmpty()
+                .NotEqual(Guid.Empty);
 
             RuleFor(c => c.CustomerName)
                 .NotEmpty()

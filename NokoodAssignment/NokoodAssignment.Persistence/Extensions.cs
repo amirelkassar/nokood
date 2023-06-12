@@ -5,11 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NokoodAssignment.Application.Base;
 using NokoodAssignment.Persistence.DatabaseContext;
 using NokoodAssignment.Persistence.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokoodAssignment.Persistence
 {

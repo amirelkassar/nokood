@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace NokoodAssignment.Domain.Entities
 {
@@ -9,22 +7,22 @@ namespace NokoodAssignment.Domain.Entities
     {
         public Reservation()
         {
-            
+
         }
         public Reservation([NotNull] Guid id,
-            [NotNull]Guid creatorId,
-            [NotNull]Guid tripId,
-            [NotNull]string customerName,
-            [NotNull]DateTime reservationDate)
+            [NotNull] Guid creatorId,
+            [NotNull] Guid tripId,
+            [NotNull] string customerName,
+            [NotNull] DateTime reservationDate)
         {
             Id = id;
-            CreatorId= creatorId;
-            TripId= tripId;
-            CustomerName= customerName;
-            ReservationDate= reservationDate;
+            CreatorId = creatorId;
+            TripId = tripId;
+            CustomerName = customerName;
+            ReservationDate = reservationDate;
         }
-        public Guid TripId{ get;private set; }
-        public string CustomerName { get; set; }
+        public Guid TripId { get; private set; }
+        public string CustomerName { get; private set; }
         public DateTime ReservationDate { get; set; }
         public string? Notes { get; set; }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace NokoodAssignment.Domain.Entities
 {
@@ -12,19 +11,19 @@ namespace NokoodAssignment.Domain.Entities
             Reservations = new HashSet<Reservation>();
         }
         public Trip(
-            [NotNull]Guid id,
-            [NotNull]Guid creatorId,
-            [NotNull]string name,
-            [NotNull]string cityName,
-            [NotNull]double price,
-            [NotNull]string imgUrl,
-            [NotNull]string content)
+            [NotNull] Guid id,
+            [NotNull] Guid creatorId,
+            [NotNull] string name,
+            [NotNull] string cityName,
+            [NotNull] double price,
+            [NotNull] string imgUrl,
+            [NotNull] string content)
         {
             Id = id;
             CreationDate = DateTime.Now;
             CreatorId = creatorId;
             Name = name;
-            CityName= cityName;
+            CityName = cityName;
             Price = price;
             ImageUrl = imgUrl;
             Content = content;

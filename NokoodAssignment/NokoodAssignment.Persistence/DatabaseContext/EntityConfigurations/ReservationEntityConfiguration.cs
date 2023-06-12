@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NokoodAssignment.Domain.Consts;
 using NokoodAssignment.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokoodAssignment.Persistence.DatabaseContext.EntityConfigurations
 {

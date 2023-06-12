@@ -1,10 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokoodAssignment.Application.Dots
 {
@@ -15,7 +9,7 @@ namespace NokoodAssignment.Application.Dots
         public bool RememberMe { get; set; }
     }
 
-    public class LoginDtoValidator:AbstractValidator<LoginDto>
+    public class LoginDtoValidator : AbstractValidator<LoginDto>
     {
         public LoginDtoValidator()
         {

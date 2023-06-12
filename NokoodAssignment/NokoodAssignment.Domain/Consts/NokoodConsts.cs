@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NokoodAssignment.Domain.Consts
+﻿namespace NokoodAssignment.Domain.Consts
 {
     public static class NokoodConsts
     {

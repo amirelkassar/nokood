@@ -7,7 +7,7 @@ namespace NokoodAssignment.Web.Handlers
     {
         public CurrentUser()
         {
-            
+
         }
         private IdentityUser _identityUser;
         public string Id { get; private set; }

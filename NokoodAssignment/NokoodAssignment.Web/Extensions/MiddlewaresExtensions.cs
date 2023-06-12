@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using NokoodAssignment.Web.Middlewares;
+﻿using NokoodAssignment.Web.Middlewares;
 
 namespace NokoodAssignment.Web.Extensions
 {

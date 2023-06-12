@@ -48,7 +48,7 @@ namespace NokoodAssignment.Web
             {
                 Log.CloseAndFlush();
             }
-           
+
         }
     }
 }
