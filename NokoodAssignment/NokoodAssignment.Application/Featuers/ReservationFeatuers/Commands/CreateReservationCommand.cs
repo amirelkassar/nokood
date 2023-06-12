@@ -65,24 +65,22 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 };
             }
         }
-
-        public class CreateReservationCommandValidator:AbstractValidator<CreateReservationCommand>
+    }
+    public class CreateReservationCommandValidator : AbstractValidator<CreateReservationCommand>
+    {
+        public CreateReservationCommandValidator()
         {
-            public CreateReservationCommandValidator()
-            {
-                RuleFor(c => c.TripId)
-                    .NotEmpty()
-                    .NotEmpty();
+            RuleFor(c => c.TripId)
+                .NotEmpty()
+                .NotEmpty();
 
-                RuleFor(c => c.CustomerName)
-                    .NotEmpty()
-                    .NotNull();
+            RuleFor(c => c.CustomerName)
+                .NotEmpty()
+                .NotNull();
 
-                RuleFor(c => c.ReservationDate)
-                    .NotNull()
-                    .NotEmpty();
-            }
+            RuleFor(c => c.ReservationDate)
+                .NotNull()
+                .NotEmpty();
         }
-
     }
 }
