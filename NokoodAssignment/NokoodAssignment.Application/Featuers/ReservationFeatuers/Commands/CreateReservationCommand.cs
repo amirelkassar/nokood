@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
 {
-    public class CreateReservationCommand : IRequest<SingleApiResponse<ReservationReadDto>>
+    public class CreateReservationCommand : IRequest<SinglePageApiResponse<ReservationReadDto>>
     {
         public Guid TripId { get; set; }
         public string CustomerName { get; set; }
         public DateTime ReservationDate { get; set; }
         public string? Notes { get; set; }
 
-        public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, SingleApiResponse<ReservationReadDto>>
+        public class CreateReservationCommandHandler : IRequestHandler<CreateReservationCommand, SinglePageApiResponse<ReservationReadDto>>
         {
             private readonly INokoodDBContext nokoodDBContext;
             private readonly ICurrentUser currentUser;
@@ -33,7 +33,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 this.currentUser = currentUser;
             }
 
-            public async Task<SingleApiResponse<ReservationReadDto>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+            public async Task<SinglePageApiResponse<ReservationReadDto>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
             {
                 var validator = new CreateReservationCommandValidator(nokoodDBContext);
                 var validation = await validator.ValidateAsync(request);
@@ -42,7 +42,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                     //check if reservation exists
                     if (nokoodDBContext.Reservations.Any(r => r.TripId == request.TripId && r.CustomerName.ToLower() == request.CustomerName.ToLower()))
                     {
-                        return new SingleApiResponse<ReservationReadDto>
+                        return new SinglePageApiResponse<ReservationReadDto>
                         {
                             Success = false,
                             Code = 400,
@@ -60,7 +60,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                     reservation.Notes = request.Notes;
 
                     await nokoodDBContext.Reservations.AddAsync(reservation, cancellationToken);
-                    return new SingleApiResponse<ReservationReadDto>
+                    return new SinglePageApiResponse<ReservationReadDto>
                     {
                         Success = true,
                         Code = 201,
@@ -70,7 +70,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Commands
                 }
                 else
                 {
-                    return new SingleApiResponse<ReservationReadDto>
+                    return new SinglePageApiResponse<ReservationReadDto>
                     {
                         Success=false,
                         Code=400,

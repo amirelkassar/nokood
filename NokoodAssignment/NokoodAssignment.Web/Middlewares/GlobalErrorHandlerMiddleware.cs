@@ -24,7 +24,7 @@ namespace NokoodAssignment.Web.Middlewares
             if (httperror != null)
             {
                 Log.Error($"An application error occured {httperror.Error}");
-                await context.Response.WriteAsJsonAsync(new SingleApiResponse<object>
+                await context.Response.WriteAsJsonAsync(new SinglePageApiResponse<object>
                 {
                     Success = false,
                     Message = $"An application error occured {httperror.Error}",

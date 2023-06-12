@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NokoodAssignment.Application.Dots
 {
-    public class SingleApiResponse<TData>
+    public class SinglePageApiResponse<TData>
     {
         public bool Success { get; set; }
         public TData Data { get; set; }

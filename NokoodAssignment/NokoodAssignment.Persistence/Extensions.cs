@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NokoodAssignment.Application.Base;
 using NokoodAssignment.Persistence.DatabaseContext;
+using NokoodAssignment.Persistence.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,8 @@ namespace NokoodAssignment.Persistence
             .AddRoles<IdentityRole>()
             .AddErrorDescriber<IdentityErrorDescriber>()
             .AddEntityFrameworkStores<NokoodDBContext>();
+
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             return services;
         }
 

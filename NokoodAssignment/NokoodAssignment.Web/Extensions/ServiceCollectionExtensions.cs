@@ -1,6 +1,8 @@
 ﻿using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NokoodAssignment.Application;
 using NokoodAssignment.Application.Base;
@@ -9,6 +11,8 @@ using NokoodAssignment.Web.Handlers;
 using Serilog;
 using Serilog.Ui.MsSqlServerProvider;
 using Serilog.Ui.Web;
+using System.Configuration;
+using System.Text;
 
 namespace NokoodAssignment.Web.Extensions
 {
@@ -20,7 +24,7 @@ namespace NokoodAssignment.Web.Extensions
             builder.Services.AddApplication();
             builder.Services.AddPersistence(builder.Configuration);
             builder.Services.AddControllers();
-            builder.Services.ComfigurteAuthentication();
+            builder.Services.ComfigurteAuthentication(builder.Configuration);
             builder.Services.ConfigureAuthorization();
             builder.Services.AddCurrentUserService();
             builder.Services.AddApiDocs();
@@ -44,19 +48,33 @@ namespace NokoodAssignment.Web.Extensions
                 opts.UseSqlServer(builder.Configuration.GetConnectionString("Logs"), "tb_logs");
             });
         }
+        private static IServiceCollection ComfigurteAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(opts =>
+            {
+                opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opts.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                var authHandler = configuration.GetSection("AuthHandler");
+                var key = Encoding.ASCII.GetBytes(authHandler["Key"]);
+                options.SaveToken = true;
+                options.TokenValidationParameters.ValidateLifetime = true;
+                options.TokenValidationParameters.ValidateIssuerSigningKey = true;
+                options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(key);
+                options.TokenValidationParameters.ValidateAudience = false;
+                options.TokenValidationParameters.ValidateIssuer = false;
+                options.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+            });
+            return services;
+        }
         private static IServiceCollection ConfigureAuthorization(this IServiceCollection services)
         {
             services.AddAuthorization(opts =>
             {
 
-            });
-            return services;
-        }
-        private static IServiceCollection ComfigurteAuthentication(this IServiceCollection services)
-        {
-            services.AddAuthentication(opts =>
-            {
-                
             });
             return services;
         }

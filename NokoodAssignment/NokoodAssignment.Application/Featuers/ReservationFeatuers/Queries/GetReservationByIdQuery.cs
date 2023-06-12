@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Queries
 {
-    public class GetReservationByIdQuery : IRequest<SingleApiResponse<ReservationReadDto>>
+    public class GetReservationByIdQuery : IRequest<SinglePageApiResponse<ReservationReadDto>>
     {
         public Guid Id { get; set; }
 
-        public class GetReservationByIdQueryHandler : IRequestHandler<GetReservationByIdQuery, SingleApiResponse<ReservationReadDto>>
+        public class GetReservationByIdQueryHandler : IRequestHandler<GetReservationByIdQuery, SinglePageApiResponse<ReservationReadDto>>
         {
             private readonly INokoodDBContext nokoodDBContext;
 
@@ -23,11 +23,11 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Queries
             {
                 this.nokoodDBContext = nokoodDBContext;
             }
-            public async Task<SingleApiResponse<ReservationReadDto>> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
+            public async Task<SinglePageApiResponse<ReservationReadDto>> Handle(GetReservationByIdQuery request, CancellationToken cancellationToken)
             {
                 if (!nokoodDBContext.Reservations.Any(r =>r.Id==request.Id))
                 {
-                    return new SingleApiResponse<ReservationReadDto>
+                    return new SinglePageApiResponse<ReservationReadDto>
                     {
                         Success = false,
                         Code = 404,
@@ -37,7 +37,7 @@ namespace NokoodAssignment.Application.Featuers.ReservationFeatuers.Queries
                 }
 
                 var reservation=await nokoodDBContext.Reservations.FindAsync(request.Id);
-                return new SingleApiResponse<ReservationReadDto>
+                return new SinglePageApiResponse<ReservationReadDto>
                 {
                     Success=true,
                     Code=200,
