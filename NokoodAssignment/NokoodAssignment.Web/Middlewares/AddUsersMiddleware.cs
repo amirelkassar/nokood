@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Serilog;
-using System.Globalization;
 
 namespace NokoodAssignment.Web.Middlewares
 {

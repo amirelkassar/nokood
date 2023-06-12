@@ -10,5 +10,11 @@ namespace NokoodAssignment.Web.Extensions
             app.UseMiddleware<AddUsersMiddleware>();
             return app;
         }
+
+        public static IApplicationBuilder UseCurrentUserService(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<UseCurrentUserMiddleware>();
+            return app;
+        }
     }
 }

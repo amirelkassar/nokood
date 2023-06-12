@@ -28,8 +28,10 @@ namespace NokoodAssignment.Web
 
                 app.UseHttpsRedirection();
 
+                app.UseAuthentication();
                 app.UseAuthorization();
 
+                app.UseCurrentUserService();
                 app.MapControllerRoute(name: "ApiRoute", pattern: "api/{controller}/{action}/{id?}");
 
                 app.Run();
