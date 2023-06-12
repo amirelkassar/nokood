@@ -62,7 +62,9 @@ namespace NokoodAssignment.Persistence.DatabaseContext.EntityConfigurations
                 .RuleFor(t => t.CityName, f => f.Address.City())
                 .RuleFor(t => t.Price, f => Convert.ToDouble(f.Commerce.Price()))
                 .RuleFor(t => t.ImageUrl, f => f.Image.LoremPixelUrl())
-                .RuleFor(t => t.Content, f => f.Random.Words(60));
+                .RuleFor(t => t.Content, f => f.Random.Words(60))
+                .RuleFor(t=>t.CreationDate,f=>f.Date.Recent())
+                .RuleFor(t=>t.CreatorId,f=>Guid.Parse("78A7570F-3CE5-48BA-9461-80283ED1D94D"));
 
             builder.HasData(tripFaker.Generate(count: 15));
 
