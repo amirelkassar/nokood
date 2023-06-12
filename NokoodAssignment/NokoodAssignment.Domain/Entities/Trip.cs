@@ -7,7 +7,10 @@ namespace NokoodAssignment.Domain.Entities
 {
     public class Trip : AuditedEntityBase<Guid>
     {
-        protected Trip() { }
+        public Trip()
+        {
+            Reservations = new HashSet<Reservation>();
+        }
         public Trip(
             [NotNull]Guid id,
             [NotNull]Guid creatorId,

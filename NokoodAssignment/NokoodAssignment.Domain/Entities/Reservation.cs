@@ -7,7 +7,7 @@ namespace NokoodAssignment.Domain.Entities
 {
     public class Reservation : AuditedEntityBase<Guid>
     {
-        protected Reservation()
+        public Reservation()
         {
             
         }

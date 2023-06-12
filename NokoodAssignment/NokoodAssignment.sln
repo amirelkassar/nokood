@@ -9,13 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{C16F8F38-4F3F-4A19-8513-AF390C3E4BE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NokoodAssignment.Domain", "NokoodAssignment.Domain\NokoodAssignment.Domain.csproj", "{ADF5E290-7958-454F-B66E-E54E421E85F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NokoodAssignment.Domain", "NokoodAssignment.Domain\NokoodAssignment.Domain.csproj", "{ADF5E290-7958-454F-B66E-E54E421E85F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NokoodAssignment.Application", "NokoodAssignment.Application\NokoodAssignment.Application.csproj", "{79AAD03E-DBEC-4422-92B2-3865DECBF13D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NokoodAssignment.Application", "NokoodAssignment.Application\NokoodAssignment.Application.csproj", "{79AAD03E-DBEC-4422-92B2-3865DECBF13D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NokoodAssignment.Persistence", "NokoodAssignment.Persistence\NokoodAssignment.Persistence.csproj", "{5C75B635-AA96-48E7-A73F-329181EE474C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NokoodAssignment.Persistence", "NokoodAssignment.Persistence\NokoodAssignment.Persistence.csproj", "{5C75B635-AA96-48E7-A73F-329181EE474C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NokoodAssignment.Web", "NokoodAssignment.Web\NokoodAssignment.Web.csproj", "{AB8BF205-FEFA-4452-A020-0C6A8FE8C76A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NokoodAssignment.Web", "NokoodAssignment.Web\NokoodAssignment.Web.csproj", "{AB8BF205-FEFA-4452-A020-0C6A8FE8C76A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{478EC007-6360-44B1-BD09-E53236092310}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

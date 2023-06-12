@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
-
+using NokoodAssignment.Application;
+using NokoodAssignment.Persistence;
 namespace NokoodAssignment.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static void InitalizeApp(this WebApplicationBuilder builder)
         {
+            builder.Services.AddApplication();
+            builder.Services.AddPersistence(builder.Configuration);
             builder.Services.AddControllers();
             builder.Services.AddApiDocs();
             builder.Services.ConfigureApiVersioning();

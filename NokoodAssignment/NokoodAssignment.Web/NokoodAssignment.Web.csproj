@@ -26,4 +26,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NokoodAssignment.Persistence\NokoodAssignment.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
