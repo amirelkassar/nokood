@@ -23,6 +23,7 @@ namespace NokoodAssignment.Persistence.DatabaseContext
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new TripEntityConfiguration());
             builder.ApplyConfiguration(new ReservationEntityConfiguration());
+            builder.ApplyConfiguration(new IdentityRoleEntityConfiguration());
         }
         public virtual DbSet<Trip> Trips { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }

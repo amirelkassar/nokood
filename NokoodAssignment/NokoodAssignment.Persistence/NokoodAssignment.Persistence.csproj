@@ -18,8 +18,4 @@
     <ProjectReference Include="..\NokoodAssignment.Domain\NokoodAssignment.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DatabaseContext\" />
-  </ItemGroup>
-
 </Project>
