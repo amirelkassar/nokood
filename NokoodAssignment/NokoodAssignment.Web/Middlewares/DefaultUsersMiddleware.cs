@@ -3,11 +3,11 @@ using Serilog;
 
 namespace NokoodAssignment.Web.Middlewares
 {
-    public class AddUsersMiddleware
+    public class DefaultUsersMiddleware
     {
         private readonly RequestDelegate requestDelegate;
 
-        public AddUsersMiddleware(RequestDelegate requestDelegate)
+        public DefaultUsersMiddleware(RequestDelegate requestDelegate)
         {
             this.requestDelegate = requestDelegate;
         }
@@ -31,8 +31,6 @@ namespace NokoodAssignment.Web.Middlewares
                 }
                 Log.Information("Users added");
             }
-            else
-                Log.Information("Users already exists!");
 
             await requestDelegate(context);
         }

@@ -4,11 +4,11 @@ using System.Security.Claims;
 
 namespace NokoodAssignment.Web.Middlewares
 {
-    public class UseCurrentUserMiddleware
+    public class CurrentUserMiddleware
     {
         private readonly RequestDelegate requestDelegate;
 
-        public UseCurrentUserMiddleware(RequestDelegate requestDelegate)
+        public CurrentUserMiddleware(RequestDelegate requestDelegate)
         {
             this.requestDelegate = requestDelegate;
         }

@@ -7,13 +7,19 @@ namespace NokoodAssignment.Web.Extensions
     {
         public static IApplicationBuilder UseDefaultUsers(this IApplicationBuilder app)
         {
-            app.UseMiddleware<AddUsersMiddleware>();
+            app.UseMiddleware<DefaultUsersMiddleware>();
             return app;
         }
 
         public static IApplicationBuilder UseCurrentUserService(this IApplicationBuilder app)
         {
-            app.UseMiddleware<UseCurrentUserMiddleware>();
+            app.UseMiddleware<CurrentUserMiddleware>();
+            return app;
+        }
+
+        public static IApplicationBuilder UseGlobalErrorHandler(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<GlobalErrorHandlerMiddleware>();
             return app;
         }
     }
