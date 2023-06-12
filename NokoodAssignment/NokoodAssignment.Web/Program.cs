@@ -14,6 +14,7 @@ namespace NokoodAssignment.Web
             try
             {
                 var app = builder.Build();
+                app.UseDefaultUsers();
                 app.UseSwagger();
 
                 app.UseSwaggerUI(c =>

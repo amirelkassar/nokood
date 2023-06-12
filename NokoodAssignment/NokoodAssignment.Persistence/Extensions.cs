@@ -15,7 +15,7 @@ namespace NokoodAssignment.Persistence
     public static class Extensions
     {
         private static IConfiguration Configuration;
-        public static IServiceCollection AddPersistence(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             Configuration = configuration;
             services.AddDataAccess();
@@ -49,6 +49,7 @@ namespace NokoodAssignment.Persistence
                 opts.Password.RequireLowercase = true;
                 opts.Password.RequireUppercase = true;
             })
+            .AddRoles<IdentityRole>()
             .AddErrorDescriber<IdentityErrorDescriber>()
             .AddEntityFrameworkStores<NokoodDBContext>();
             return services;
