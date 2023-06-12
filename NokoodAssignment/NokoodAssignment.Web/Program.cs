@@ -1,5 +1,7 @@
 
 using NokoodAssignment.Web.Extensions;
+using Serilog;
+using Serilog.Ui.Web;
 
 namespace NokoodAssignment.Web
 {
@@ -9,24 +11,37 @@ namespace NokoodAssignment.Web
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.InitalizeApp();
-
-
-            var app = builder.Build();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
+            try
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nokood APIs Docs");
-            });
+                var app = builder.Build();
+                app.UseSwagger();
 
-            app.UseHttpsRedirection();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nokood APIs Docs");
+                });
+                app.UseSerilogUi(opts =>
+                {
+                    opts.RoutePrefix = "logs";
+                });
 
-            app.UseAuthorization();
+                app.UseHttpsRedirection();
 
-            app.MapControllerRoute(name: "ApiRoute", pattern: "api/{controller}/{action}/{id?}");
+                app.UseAuthorization();
 
-            app.Run();
+                app.MapControllerRoute(name: "ApiRoute", pattern: "api/{controller}/{action}/{id?}");
+
+                app.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Nokood terminated unexpectedly!");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+           
         }
     }
 }

@@ -3,12 +3,17 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using NokoodAssignment.Application;
 using NokoodAssignment.Persistence;
+using Serilog;
+using Serilog.Ui.MsSqlServerProvider;
+using Serilog.Ui.Web;
+
 namespace NokoodAssignment.Web.Extensions
 {
     public static class ServiceCollectionExtensions
     {
         public static void InitalizeApp(this WebApplicationBuilder builder)
         {
+            builder.AddSerilog();
             builder.Services.AddApplication();
             builder.Services.AddPersistence(builder.Configuration);
             builder.Services.AddControllers();
@@ -16,6 +21,23 @@ namespace NokoodAssignment.Web.Extensions
             builder.Services.ConfigureApiVersioning();
         }
 
+        private static void AddSerilog(this WebApplicationBuilder builder)
+        {
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+               .Build();
+            //Initialize Logger
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .CreateLogger();
+            Log.Information("Starting Nokood...");
+            builder.Host.UseSerilog();
+
+            builder.Services.AddSerilogUi(opts =>
+            {
+                opts.UseSqlServer(builder.Configuration.GetConnectionString("Logs"), "tb_logs");
+            });
+        }
         private static IServiceCollection AddApiDocs(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
