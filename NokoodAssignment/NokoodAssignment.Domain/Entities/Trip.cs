@@ -25,12 +25,14 @@ namespace NokoodAssignment.Domain.Entities
             Price = price;
             ImageUrl = imgUrl;
             Content = content;
+            Reservations = new HashSet<Reservation>();
         }
         public string Name { get; set; }
         public string CityName { get; set; }
         public double Price { get; set; }
         public string ImageUrl { get; set; }
         public string Content { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

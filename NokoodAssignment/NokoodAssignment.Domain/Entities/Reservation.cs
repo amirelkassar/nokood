@@ -26,6 +26,6 @@ namespace NokoodAssignment.Domain.Entities
         public Guid TripId{ get;private set; }
         public string CustomerName { get; set; }
         public DateTime ReservationDate { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
     }
 }
