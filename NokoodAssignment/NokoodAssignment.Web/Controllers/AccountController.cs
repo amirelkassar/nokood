@@ -19,7 +19,7 @@ namespace NokoodAssignment.Web.Controllers
 
         [HttpPost("~/login")]
         [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> LoginJWT([FromBody]LoginDto input)
+        public async Task<IActionResult> LoginAsync([FromBody]LoginDto input)
         {
             var results = await authenticationService.LoginAsync(input);
             if (results.Success)

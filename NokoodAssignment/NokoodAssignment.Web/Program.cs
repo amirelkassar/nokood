@@ -14,14 +14,17 @@ namespace NokoodAssignment.Web
             try
             {
                 var app = builder.Build();
-                app.UseGlobalErrorHandler();
-                app.UseDefaultUsers();
-                app.UseSwagger();
 
+                app.UseGlobalErrorHandler();
+
+                app.UseDefaultUsers();
+
+                app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nokood APIs Docs");
                 });
+
                 app.UseSerilogUi(opts =>
                 {
                     opts.RoutePrefix = "logs";
