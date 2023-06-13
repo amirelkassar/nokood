@@ -10,7 +10,7 @@ Here're some of the project's best features:
 
 *   Project build on Clean Architecture and DDD standers
 *   Logging to SQL Server DB Using Serilog
-*   Logs Dashboard using Serilog UI
+*   Logs Dashboard using Serilog UI (Navigate to '/logs')
 *   Database Sql Server
 *   Microsot Identity to manage the Identity Users
 *   Authentication layer handled by JWT and custom Authentication services
@@ -23,6 +23,7 @@ Here're some of the project's best features:
 *   Apis Validation handled by FluentValidation
 *   Data Access Layer handled by EF Core with Code first approach
 *   The Arch : https://github.com/amirelkassar/nokood/blob/master/Planning/ProjectPlanning.pdf
+*   Swagger Api explorer (Navigate to '/swagger')
 
 <h2>🛠️ Installation Steps:</h2>
 
